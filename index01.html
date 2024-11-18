@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/jquery.bxslider.css">
+    <title>한솔제지</title>
+    <style>
+        @font-face {
+            font-family: 'Noto Sans KR';
+            src: url(./fonts/NotoSansKR-VariableFont_wght.ttf);
+        }
+        :root{
+            --main-color01:#0075c2;
+            --main-color02:#019942;
+            --font-color01:#333;
+            --font-color02:#666;
+            --font-color03:#999;
+            --font-color04:#f7f7f7;
+            font-family: 'Noto Sans KR';
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 34px;
+            color: var(--font-color01);
+        }
+        .wrap{
+            width: 100%;
+            overflow: hidden;
+        }
+        .container{
+            width: 1240px;
+            margin: 0 auto;
+        }
+        /* heder style */
+        .header{
+            border-bottom: 1px solid var(--font-color03);
+            padding: 23px 0 22px;
+            background: #fff;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 10000;
+        }
+        .header .logo{
+            float: left;
+            margin-right: 118px;
+        }
+        .header .logo a{
+            display: block;
+            width: 115px;
+            height: 45px;
+            background:url(./images/logo.jpg) no-repeat center;
+            background-size: contain;
+            text-indent: -9999px;
+        }
+        header .nav{
+            float: left;
+        }
+        .header .nav li:hover{
+            color: var(--main-color01);
+        }
+        .header .main-nav>li{
+            float: left;
+            margin-right: 48px;
+            padding-top: 4px;
+            font-weight: 500;
+            position: relative;
+        }
+        .header .main-nav>li::after{
+            content: '';
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 65px;
+            height: 2px;
+            background: var(--main-color01);
+        }
+        .header .main-nav>li:hover::after{
+            display: block;
+        }
+        .header .sub-nav{
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 96px;
+            width: 1000px;
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--font-color02);
+        }
+        .header .sub-nav li{
+            float: left;
+            margin-right: 48px;
+        }
+        .header .main-nav>li:hover .sub-nav{
+            display: block;
+        }
+        .header .q-nav a{
+            float: left;
+            height: 35px;
+            margin-left: 10px;
+            border-radius: 17.5px;
+            text-align: center;
+            line-height: 35px;
+        }
+        .header .q-nav a:nth-child(1){
+            width: 90px;
+            color: var(--font-color01);
+        }
+        .header .q-nav a:nth-child(2){
+            width: 116px;
+            height: 30px;
+            padding-left: 34px;
+            background: var(--main-color01) url(./images/ico-virtual.png) no-repeat 10px center;
+            background-size: 27px;
+        }
+        .header .q-nav a:nth-child(3){
+            width: 35px;
+            background: var(--font-color03);
+        }
+
+        /* main style */
+        .main-slider{
+            margin-bottom: 144px;
+            padding-top: 150px;
+            position: relative;
+            z-index: 1000;
+        }
+        .main-slider .container{
+            width: 1660px;
+        }
+        .bx-wrapper {
+            -moz-box-shadow:none;
+            -webkit-box-shadow:none;            
+            box-shadow:none;
+            border:none;
+            background:transparent;
+        }
+        .bx-wrapper .bx-pager, .bx-wrapper .bx-controls-auto {
+            bottom:75px;        
+        }
+        .slide > a{
+            position: absolute;
+            left: 270px;
+            top: 456px;
+        }
+        .slide > a::before{
+            content: '';
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            background: #000;
+            position: absolute;
+            right: -32px;
+            top: 5px;
+        }
+        .slide > a::after{
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+            transform: rotate(45deg);
+            position: absolute;
+            right: -24px;
+            top: 11px;
+        }
+
+        /* sub-style */
+        .sub-slider{
+            margin-bottom: 144px;
+        }
+        .sub-slider .container{
+            width: 1900px;
+        }
+        .sub-slider .clearfix{
+            width: 1240px;
+            margin: 0 auto 46px;
+        }
+        .sub-slider .f-left{
+            float: left;
+            font-weight: 700;
+            font-size: 46px;
+            line-height: 60px;
+            position: relative;
+        }
+        .sub-slider .f-left::after{
+            content: '';
+            display: block;
+            width: 180px;
+            height: 2px;
+            background: #000;
+            position: absolute;
+            left: 450px;
+            top: 100px;
+        }
+        .sub-slider .f-right{
+            float: right;
+        }
+        .sub-slider .sm-txt{
+            padding: 10px 0;
+            font-size: 15px;
+            color: var(--font-color02);
+        }
+        .sub-slider button{
+            width: 160px;
+            height: 40px;
+            border: none;
+            padding-left: 16px;
+            background: var(--font-color01);
+            color: var(--font-color04);
+            text-align: left;
+            position: relative;
+        }
+        .sub-slider button::after{
+            content: '';
+            display: block;
+            box-sizing: border-box;
+            width: 10px;
+            height: 10px;
+            border-top: 1px solid #fff;
+            border-right: 1px solid #fff;
+            transform: rotate(45deg);
+            position: absolute;
+            left: 130px;
+            top: 16px;
+        }
+        /* together style */
+        .together{
+            margin-bottom: 288px;
+        }
+        .together h2{
+            font-weight: 900;
+            font-size: 200px;
+            color: var(--font-color04);
+        }
+        .together h3{
+            margin-bottom: 96px;
+            padding-right: 70px;
+            font-weight: 700;
+            font-size: 72px;
+            line-height: 1.2;
+            text-align: right;
+        }
+        .together li{
+            margin-bottom: 46px;
+            border-top: 2px solid var(--font-color01);
+            padding: 42px 0;
+        }
+        .together li h4{
+            float: left;
+            width: 524px;
+            font-weight: 700;
+            font-size: 36px;
+        }
+        .together li p{
+            float: left;
+            width: 550px;
+        }
+        .together li span{
+            float: right;
+            padding-right: 52px;
+        }
+        .together li span a{
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+            background: var(--font-color01);
+            text-indent: -99999px;
+            position: relative;
+        }
+        .together li span a::after{
+            content: '';
+            display: block;
+            box-sizing: border-box;
+            width: 10px;
+            height: 10px;
+            border-top: 2px solid var(--font-color04);
+            border-right: 2px solid var(--font-color04);
+            transform: rotate(45deg);
+            position: absolute;
+            left: 14px;
+            top: 14px;
+        }
+        /* footer style */
+        .footer{
+            padding: 48px 0 30px;
+            background: #ddd;
+        }
+        .footer h2{
+            float: left;
+            margin-right: 68px;
+        }
+        .footer h2 a{
+            display: block;
+            width: 143px;
+            height: 60px;
+            background: url(./images/logo2.jpg) no-repeat center;
+            background-size: contain;
+            text-indent: -99999px;
+        }
+        .footer address{
+            float: left;
+            font-size: 14px;
+            color: var(--font-color02);
+            line-height: 1.8;
+        }
+        .footer .f-right{
+            float: right;
+            position: relative;
+            top: -18px;
+        }
+        .footer .footer-nav a, .footer .footer-nav select{
+            display: inline-block;
+            padding: 12px;
+            font-size: 14px;
+        }
+        .footer .footer-nav select{
+            width: 210px;
+        }
+        .footer .sns{
+            text-align: right;
+        }
+        .footer .sns a{
+            display: inline-block;
+            width: 35px;
+            margin-left: 6px;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="wrap">
+        <header class="header">
+            <div class="container clearfix">
+                <h1 class="logo"><a href="./index01.html">한솔제지 hansolpaper</a></h1>
+                <nav class="nav">
+                    <ul class="main-nav clearfix">
+                        <li>
+                            <a href="#">제품소개</a>
+                            <ul class="sub-nav clearfix">
+                                <li><a href="#">인스퍼</a></li>
+                                <li><a href="#">인쇄용지</a></li>
+                                <li><a href="#">산업용지</a></li>
+                                <li><a href="#">특수지</a></li>
+                                <li><a href="#">감열지</a></li>
+                                <li><a href="#">신소재</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">회사소개</a>
+                            <ul class="sub-nav clearfix">
+                                <li><a href="#">한솔제지</a></li>
+                                <li><a href="#">이념과 비전</a></li>
+                                <li><a href="#">연혁</a></li>
+                                <li><a href="#">CEO인사</a></li>
+                                <li><a href="#">문화사업</a></li>
+                                <li><a href="#">사업장 소개</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">지속가능경영</a>
+                            <ul class="sub-nav clearfix">
+                                <li><a href="#">그린경영</a></li>
+                                <li><a href="#">사회책임경영</a></li>
+                                <li><a href="#">인권경영</a></li>
+                                <li><a href="#">기업지배구조</a></li>
+                                <li><a href="#">자료실</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">투자정보</a>
+                            <ul class="sub-nav clearfix">
+                                <li><a href="#">재무정보</a></li>
+                                <li><a href="#">공시정보</a></li>
+                                <li><a href="#">배당현황</a></li>
+                                <li><a href="#">전자공고</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">인재채용</a>
+                            <ul class="sub-nav clearfix">
+                                <li><a href="#">인사제도</a></li>
+                                <li><a href="#">채용정보</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">소식</a>
+                            <ul class="sub-nav">
+                                <li><a href="#">뉴스</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="q-nav clearfix">
+                    <li><a href="#">고객문의</a></li>
+                    <li><a href="#">가상전시관</a></li>
+                    <li><a href="#">Eng</a></li>
+                </div>
+            </div>
+        </header>
+        <section class="sec sec01 main-slider">
+            <div class="container">
+                <div class="slider">
+                    <div class="slide slide01">
+                        <img src="./images/main-banner01.jpg" alt="banner01">
+                        <a href="#">문의하러 가기</a>
+                    </div>
+                    <div class="slide slide02">
+                        <img src="./images/main-banner02.jpg" alt="banner02">
+                        <a href="#">인스퍼 스마트 스토어 바로가기</a>
+                    </div>
+                    <div class="slide slide03">
+                        <img src="./images/main-banner03.jpg" alt="banner03">
+                        <a href="#">자세히 보기</a>
+                    </div>
+                    <div class="slide slide04">
+                        <img src="./images/main-banner04.jpg" alt="banner04">
+                        <a href="#">자세히 보기</a>
+                    </div>
+                    <div class="slide slide05">
+                        <img src="./images/main-banner05.jpg" alt="banner05">
+                        <a href="#">자세히 보기</a>
+                    </div>
+                    <div class="slide slide06">
+                        <img src="./images/main-banner06.jpg" alt="banner06">
+                        <a href="#">자세히 보기</a>
+                    </div>
+                    <div class="slide slide07">
+                        <img src="./images/main-banner07.jpg" alt="banner07">
+                        <a href="#">한솔에코패키징 스마트 스토어 바로가기</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="sec sec02 sub-slider">
+            <div class="container">
+                <div class="slider">
+                        <div class="slide slide01">
+                        <div class="clearfix">
+                            <div class="f-left">
+                                <h2>한솔제지는<br>국내 제지산업의<br>중심입니다.</h2>
+                            </div>
+                            <div class="f-right">
+                                <p>한솔인은 어려움에 부닥치거나 도전을 받으면<br>철갑을 두른 듯하다는 그 소나무처럼 강철 같은 힘을 발휘한다.<br>침엽수의 날카로운 잎처럼 예리하고 섬세한 적응력으로 응전을 한다.</p>
+                                <p class="sm-txt">초대 문화부 장관 이어령, 한솔 40년 사사 축사 중</p>
+                                <button>한솔제지 소개</button>
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <img src="./images/sub-banner01.jpg" alt="sub-banner01">
+                        </div>
+                    </div>
+                    <div class="slide slide02">
+                        <div class="clearfix">
+                            <div class="f-left">
+                                <h2>한솔제지는<br>국내 제지산업의<br>중심입니다.</h2>
+                            </div>
+                            <div class="f-right">
+                                <p>플라스틱이나 금속의 광물질과는 달리<br>종이는 우리에게 늘 따숩고 정겨운 촉감을 준다.<br>문방사우의 하나인 이 종이야말로 시와 서화를 담는 꿈의 그릇이 아니겠는가.</p>
+                                <p class="sm-txt">초대 문화부 장관 이어령, 한솔 40년 사사 축사 중</p>
+                                <button>한솔제지 소개</button>
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <img src="./images/sub-banner02.jpg" alt="sub-banner02">
+                        </div>
+                    </div>
+                    <div class="slide slide03">
+                        <div class="clearfix">
+                            <div class="f-left">
+                                <h2>한솔제지는<br>국내 제지산업의<br>중심입니다.</h2>
+                            </div>
+                            <div class="f-right">
+                                <p>한솔은 영원한 청년으로<br>40년의 나이테를 안에 몰래 숨기며<br>천년을 만년을 향하여 젊게 살아가는 바위 같은 나무다.</p>
+                                <p class="sm-txt">초대 문화부 장관 이어령, 한솔 40년 사사 축사 중</p>
+                                <button>한솔제지 소개</button>
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <img src="./images/sub-banner03.jpg" alt="sub-banner03">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+        <section class="sec sec03 together">
+            <div class="container">
+                <h2>Go together</h2>
+                <h3>한솔제지는<br>고객과 함께 성장합니다.</h3>
+                <ul>
+                    <li class="clearfix">
+                        <h4><a href="#">페이퍼넷</a></h4>
+                        <p><a href="#">한솔제지는 환경 변화와 고객 니즈를 반영한 제품 포트폴리오 강화를 통해<br>선진 제지기업으로서의 최고의 제품을 위해 노력하고 있습니다.</a></p>
+                        <span><a href="#">링크</a></span>
+                    </li>
+                    <li class="clearfix">
+                        <h4><a href="#">열린구매 시스템</a></h4>
+                        <p><a href="#">구매관리, 운송정보, 납품실적관리를 쉽고 편리하게<br>확인 하실 수 있습니다.</a></p>
+                        <span><a href="#">링크</a></span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <footer class="footer">
+            <div class="container clearfix">
+                <h2><a href="#">한솔제지</a></h2>
+                <address>서울 중구 을지로 100 (을지로2가) 파인애비뉴 B동 23~24층<br>Copyright 2020. Hansol Paper., Ltd. All rights reserved.</address>
+                <div class="f-right">
+                    <div class="f-nav">
+                        <a href="#">개인정보처리방침</a>
+                        <a href="#">익명신고센터</a>
+                        <select name="family" id="family">
+                            <option>Family Site</option>
+                            <option value="https://hansol.com/">한솔그룹</option>
+                            <option value="https://www.hansolpns.com/">한솔PNS</option>
+                            <option value="https://www.hansolhomedeco.co.kr/">한솔홈데코</option>
+                        </select>
+                    </div>
+                    <div class="sns">
+                        <a href="#"><img src="./images/ico-inst.png" alt="instagram"></a>
+                        <a href="#"><img src="./images/ico-face.png.png" alt="facebook"></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+    <script src="./js/jquery-3.1.1.min.js"></script>
+    <script src="./js/jquery.bxslider.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".slider").bxSlider();
+        })
+    </script>
+</body>
+</html>
